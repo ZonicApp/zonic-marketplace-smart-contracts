@@ -5,6 +5,7 @@ A solidity smart contract of Zonic NFT Marketplace
 ## Setup
 
 ```
+cp .env.example .env
 npm install
 ```
 
