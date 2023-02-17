@@ -1,0 +1,46 @@
+{
+  "name": "zonic-smart-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ZonicApp/zonic-marketplace-smart-contracts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZonicApp/zonic-marketplace-smart-contracts/issues"
+  },
+  "homepage": "https://github.com/ZonicApp/zonic-marketplace-smart-contracts",
+  "devDependencies": {
+    "@matterlabs/hardhat-zksync-deploy": "^0.6.1",
+    "@matterlabs/hardhat-zksync-solc": "^0.3.14",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@nomiclabs/hardhat-etherscan": "^3.1.5",
+    "@nomiclabs/hardhat-ganache": "^2.0.1",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "chai": "^4.3.7",
+    "erc721psi": "^0.7.0",
+    "ethereum-waffle": "^3.4.4",
+    "ethers": "^5.6.7",
+    "hardhat": "^2.9.6"
+  },
+  "dependencies": {
+    "@ethereumjs/util": "^8.0.3",
+    "@metamask/eth-sig-util": "^5.0.2",
+    "@openzeppelin/contracts": "^4.8.1",
+    "@openzeppelin/contracts-upgradeable": "^4.8.1",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
+    "@openzeppelin/upgrades-core": "^1.22.0",
+    "deep-equal-in-any-order": "^2.0.2",
+    "dotenv": "^16.0.3",
+    "ethereum-cryptography": "^1.1.2",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-bits": "^0.4.0"
+  }
+}
