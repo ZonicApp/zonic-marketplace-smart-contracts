@@ -81,6 +81,12 @@ module.exports = {
       gasPrice: 8000000000,
       accounts: {mnemonic: mnemonic}
     },
+    baseGoerli: {
+      url: 'https://goerli.base.org',
+      chainId: 84531,
+      gasPrice: 1000000,
+      accounts: {mnemonic: mnemonic}
+    },
     zksync2: {
       url: 'https://zksync2-testnet.zksync.dev',
       chainId: 280,
@@ -98,6 +104,7 @@ module.exports = {
       optimisticEthereum: process.env.ETHERSCAN_OPTIMISM_API_KEY,
       arbitrumOne: process.env.ETHERSCAN_ARBITRUM_ONE_API_KEY,
       arbitrumNova: process.env.ETHERSCAN_ARBITRUM_NOVA_API_KEY,
+      baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
     },
     customChains: [
       {
@@ -122,6 +129,14 @@ module.exports = {
         urls: {
           apiURL: "https://api-nova.arbiscan.io/api",
           browserURL: "https://nova.arbiscan.io/"
+        }
+      },
+      {
+        network: "baseGoerli",
+        chainId: 84531,
+        urls: {
+          apiURL: "https://api-goerli.basescan.org/api",
+          browserURL: "https://goerli.basescan.org/"
         }
       },
     ]
