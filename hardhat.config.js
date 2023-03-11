@@ -87,6 +87,11 @@ module.exports = {
       gasPrice: 1000000,
       accounts: {mnemonic: mnemonic}
     },
+    mantleTestnet: {
+      url: 'https://rpc.testnet.mantle.xyz',
+      chainId: 5001,
+      accounts: {mnemonic: mnemonic}
+    },
     zksync2: {
       url: 'https://zksync2-testnet.zksync.dev',
       chainId: 280,
@@ -105,6 +110,7 @@ module.exports = {
       arbitrumOne: process.env.ETHERSCAN_ARBITRUM_ONE_API_KEY,
       arbitrumNova: process.env.ETHERSCAN_ARBITRUM_NOVA_API_KEY,
       baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
+      mantleTestnet: process.env.ETHERSCAN_MANTLE_TESTNET_API_KEY,
     },
     customChains: [
       {
@@ -137,6 +143,14 @@ module.exports = {
         urls: {
           apiURL: "https://api-goerli.basescan.org/api",
           browserURL: "https://goerli.basescan.org/"
+        }
+      },
+      {
+        network: "mantleTestnet",
+        chainId: 5001,
+        urls: {
+          apiURL: "https://explorer.testnet.mantle.xyz/api",
+          browserURL: "https://explorer.testnet.mantle.xyz"
         }
       },
     ]

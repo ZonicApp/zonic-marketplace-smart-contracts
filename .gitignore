@@ -24,4 +24,6 @@ cache-zk
 artifacts-zk
 .openzeppelin
 
+scripts
+
 **/.DS_Store
