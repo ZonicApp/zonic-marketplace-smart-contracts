@@ -92,6 +92,11 @@ module.exports = {
       chainId: 5001,
       accounts: {mnemonic: mnemonic}
     },
+    acrechainTestnet: {
+      url: 'https://rpc2-testnet2-acre.synergynodes.com',
+      chainId: 9051,
+      accounts: {mnemonic: mnemonic}
+    },
     zksync2: {
       url: 'https://zksync2-testnet.zksync.dev',
       chainId: 280,
@@ -111,6 +116,7 @@ module.exports = {
       arbitrumNova: process.env.ETHERSCAN_ARBITRUM_NOVA_API_KEY,
       baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
       mantleTestnet: process.env.ETHERSCAN_MANTLE_TESTNET_API_KEY,
+      acrechainTestnet: process.env.ETHERSCAN_ACRECHAIN_TESTNET_API_KEY,
     },
     customChains: [
       {
@@ -151,6 +157,14 @@ module.exports = {
         urls: {
           apiURL: "https://explorer.testnet.mantle.xyz/api",
           browserURL: "https://explorer.testnet.mantle.xyz"
+        }
+      },
+      {
+        network: "acrechainTestnet",
+        chainId: 9051,
+        urls: {
+          apiURL: "https://testnet.acrescan.com/api",
+          browserURL: "https://testnet.acrescan.com"
         }
       },
     ]
