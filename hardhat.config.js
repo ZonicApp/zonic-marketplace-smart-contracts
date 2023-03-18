@@ -105,6 +105,16 @@ module.exports = {
       zksync: true,
       accounts: {mnemonic: mnemonic}
     },
+    polygonZkEvmTestnet: {
+      url: 'https://rpc.public.zkevm-test.net',
+      chainId: 1442,
+      accounts: {mnemonic: mnemonic}
+    },
+    scrollAlphaTestnet: {
+      url: 'https://alpha-rpc.scroll.io/l2',
+      chainId: 534353,
+      accounts: {mnemonic: mnemonic}
+    },
   },
   etherscan: {
     apiKey: {
@@ -117,6 +127,9 @@ module.exports = {
       baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
       mantleTestnet: process.env.ETHERSCAN_MANTLE_TESTNET_API_KEY,
       acrechainTestnet: process.env.ETHERSCAN_ACRECHAIN_TESTNET_API_KEY,
+      zkSyncTestnet: process.env.ETHERSCAN_ZKSYNC_TESTNET_API_KEY,
+      polygonZkEvmTestnet: process.env.ETHERSCAN_POLYGONZKEVM_TESTNET_API_KEY,
+      scrollAlphaTestnet: process.env.ETHERSCAN_SCROLL_ALPHA_TESTNET_API_KEY,
     },
     customChains: [
       {
@@ -165,6 +178,30 @@ module.exports = {
         urls: {
           apiURL: "https://testnet.acrescan.com/api",
           browserURL: "https://testnet.acrescan.com"
+        }
+      },
+      {
+        network: "zkSyncTestnet",
+        chainId: 280,
+        urls: {
+          apiURL: "https://zksync2-testnet.zkscan.io/api",
+          browserURL: "https://zksync2-testnet.zkscan.io/"
+        }
+      },
+      {
+        network: "polygonZkEvmTestnet",
+        chainId: 1442,
+        urls: {
+          apiURL: "https://explorer.public.zkevm-test.net/api",
+          browserURL: "https://explorer.public.zkevm-test.net"
+        }
+      },
+      {
+        network: "scrollAlphaTestnet",
+        chainId: 534353,
+        urls: {
+          apiURL: "https://blockscout.scroll.io/api",
+          browserURL: "https://blockscout.scroll.io"
         }
       },
     ]
