@@ -6,12 +6,12 @@ const { generateDefaultListingItem } = require('./ListingItemUtils');
 const marketplaceWallet = new ethers.Wallet(ethers.Wallet.createRandom(), waffle.provider)
 const adminWallet = new ethers.Wallet(ethers.Wallet.createRandom(), waffle.provider)
 
-describe("ZonicMarketplace", function () {
+describe("ZonicMarketplaceV1", function () {
   async function deployZonicMarketplaceContract() {
     const [owner, zoner, creator] = await ethers.getSigners();
 
-    const ZonicMarketplace = await ethers.getContractFactory("ZonicMarketplace");
-    const proxy = await upgrades.deployProxy(ZonicMarketplace, [
+    const ZonicMarketplaceV1 = await ethers.getContractFactory("ZonicMarketplaceV1");
+    const proxy = await upgrades.deployProxy(ZonicMarketplaceV1, [
       "Zonic : NFT Marketplace for L2",
       "1",
       1000,                      // Creator Fee Max Percentage
@@ -91,7 +91,7 @@ describe("ZonicMarketplace", function () {
     }  
   }
 
-  it("Should process the listing successfully", async function () {
+  it("ZonicMarketplaceV1: Should process the listing successfully", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -146,7 +146,7 @@ describe("ZonicMarketplace", function () {
       .to.be.equal(ethers.utils.parseEther("0.025"))
   });
 
-  it("Should not be able to process to order twice", async function () {
+  it("ZonicMarketplaceV1: Should not be able to process to order twice", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -185,7 +185,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('Duplicate saleId')
   })
 
-  it("Should revert if token is not owned by offerer", async function () {
+  it("ZonicMarketplaceV1: Should revert if token is not owned by offerer", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -219,7 +219,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('caller is not token owner or approved')
   })
 
-  it("Should revert if token transfer is not approved", async function () {
+  it("ZonicMarketplaceV1: Should revert if token transfer is not approved", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -252,7 +252,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('caller is not token owner or approved')
   })
 
-  it("Should revert the expired listing", async function () {
+  it("ZonicMarketplaceV1: Should revert the expired listing", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -286,7 +286,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('Order Expired')
   });
 
-  it("Should be reverted if no ETH is sent", async function () {
+  it("ZonicMarketplaceV1: Should be reverted if no ETH is sent", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -318,7 +318,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('Missing Ether')
   });
 
-  it("Should be reverted if wrong amount of ETH sent", async function () {
+  it("ZonicMarketplaceV1: Should be reverted if wrong amount of ETH sent", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -360,7 +360,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('Missing Ether')
   });
 
-  it("Should revert the exceeded allowed creator fee rate listing", async function () {
+  it("ZonicMarketplaceV1: Should revert the exceeded allowed creator fee rate listing", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -415,7 +415,7 @@ describe("ZonicMarketplace", function () {
     ).to.be.revertedWith('Total creator fee exceeds the allowed rate')
   });
 
-  it("Should be able to cancel order by referer or admin successfully", async function () {
+  it("ZonicMarketplaceV1: Should be able to cancel order by referer or admin successfully", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();
@@ -445,7 +445,7 @@ describe("ZonicMarketplace", function () {
     )
   })
 
-  it("Should not be able to cancel order by non-referer or non-zoner successfully", async function () {
+  it("ZonicMarketplaceV1: Should not be able to cancel order by non-referer or non-zoner successfully", async function () {
     const [owner, zoner, creator] = await ethers.getSigners();
 
     const contract = await deployZonicMarketplaceContract();

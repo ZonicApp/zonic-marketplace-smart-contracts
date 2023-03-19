@@ -10,6 +10,7 @@ import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 
 import "./lib/OrderProcessorUpgradable.sol";
 import "./lib/PersonalSignLib.sol";
@@ -18,7 +19,12 @@ import {
   _revertWithUnsupportedCannotBuyYourOwnItem
 } from './lib/OrderErrors.sol';
 
-contract ZonicMarketplace is OrderProcessorUpgradable, ReentrancyGuardUpgradeable, PersonalSignLib {
+import {
+  OrderType,
+  ItemType
+} from "./lib/OrderEnums.sol";
+
+contract ZonicMarketplaceV1 is OrderProcessorUpgradable, ReentrancyGuardUpgradeable, PersonalSignLib {
   event ZonicBasicOrderFulfilled(address offerer, address buyer, address token, uint256 identifier, address currency, uint256 totalPrice, uint256 creatorFee, uint256 marketplaceFee, address saleId);
   event ZonicBasicOrderCanceled(address offerer, address token, uint256 identifier, address saleId);
 
@@ -68,21 +74,10 @@ contract ZonicMarketplace is OrderProcessorUpgradable, ReentrancyGuardUpgradeabl
     // -------------------
 
     // Transfer Offered Item
-    for (uint i = 0; i < listing.offers.length; i++) {
-      IERC721 tokenContract = IERC721(listing.offers[i].token);
-      tokenContract.safeTransferFrom(listing.offerer, msg.sender, listing.offers[i].identifier);
-      require(tokenContract.ownerOf(listing.offers[i].identifier) == msg.sender, "Transfer Failed");
-    }
+    _transferOfferItems(listing);
 
-    // Transfer Offerer payout
-    _transferEth(payable(listing.offererPayout.recipient), listing.offererPayout.amount);
-
-    // Transfer Creator Payouts
-    for (uint i = 0; i < listing.creatorPayouts.length; i++)
-      _transferEth(payable(listing.creatorPayouts[i].recipient), listing.creatorPayouts[i].amount);
-
-    // Transfer Marketplace Fee
-    _transferEth(payable(marketplaceFeePayoutAddress), marketplaceFee);
+    // Transfer Payout
+    _transferPayout(listing, marketplaceFee);
   }
 
   function __emitZonicBasicOrderFulfilledEvent(
@@ -120,7 +115,6 @@ contract ZonicMarketplace is OrderProcessorUpgradable, ReentrancyGuardUpgradeabl
   }
 
   /* Admin Functions */
-
   function setSignerAddress(address _signerAddress) public onlyOwner {
     signerAddress = _signerAddress;
   }
@@ -140,6 +134,86 @@ contract ZonicMarketplace is OrderProcessorUpgradable, ReentrancyGuardUpgradeabl
   }
 
   /* Helper Methods */
+  function _transferOfferItems(
+    Listing memory listing
+  ) internal {
+    for (uint i = 0; i < listing.offers.length; i++) {
+      _performTransfer(
+        listing.offerer,
+        msg.sender,
+        listing.offers[i].itemType,
+        listing.offers[i].token,
+        listing.offers[i].identifier,
+        listing.offers[i].amount
+      );
+    }
+  }
+
+  function _transferPayout(
+    Listing memory listing,
+    uint256 marketplaceFee
+  ) internal {
+    // Transfer Offerer payout
+    _performTransfer(
+      msg.sender,
+      listing.offererPayout.recipient,
+      listing.offererPayout.itemType,
+      listing.offererPayout.token,
+      listing.offererPayout.identifier,
+      listing.offererPayout.amount
+    );
+
+    // Transfer Creator Payouts
+    for (uint i = 0; i < listing.creatorPayouts.length; i++)
+      _performTransfer(
+        msg.sender,
+        listing.creatorPayouts[i].recipient,
+        listing.creatorPayouts[i].itemType,
+        listing.creatorPayouts[i].token,
+        listing.creatorPayouts[i].identifier,
+        listing.creatorPayouts[i].amount
+      );
+
+    // Transfer Marketplace Fee
+    _performTransfer(
+      msg.sender,
+      marketplaceFeePayoutAddress,
+      listing.offererPayout.itemType,
+      listing.offererPayout.token,
+      listing.offererPayout.identifier,
+      marketplaceFee
+    );    
+  }
+
+  function _performTransfer(
+    address sender,
+    address recipient,
+    uint8 itemType,
+    address tokenAddress,
+    uint256 identifier,
+    uint256 amount
+  ) internal {
+    if (itemType == uint8(ItemType.COIN)) {
+      // Native Currency
+      require(sender == msg.sender, "Invalid sender");
+      require(tokenAddress == address(0), "Invalid address");
+      _transferEth(payable(recipient), amount);
+    } else if (itemType == uint8(ItemType.ERC20_TOKEN)) {
+      // ERC20
+      IERC20 tokenContract = IERC20(tokenAddress);
+      tokenContract.transferFrom(sender, recipient, amount);
+    } else if (itemType == uint8(ItemType.ERC721_TOKEN)) {
+      // ERC721
+      IERC721 tokenContract = IERC721(tokenAddress);
+      tokenContract.safeTransferFrom(sender, recipient, identifier);
+      require(tokenContract.ownerOf(identifier) == recipient, "Transfer Failed");
+    } else if (itemType == uint8(ItemType.ERC1155_TOKEN)) {
+      // ERC1155
+      IERC1155 tokenContract = IERC1155(tokenAddress);
+      tokenContract.safeTransferFrom(sender, recipient, identifier, amount, "");
+    }
+  }
+
   function _transferEth(address payable to, uint256 amount) internal {
     if (amount == 0)
       return;
@@ -147,8 +221,7 @@ contract ZonicMarketplace is OrderProcessorUpgradable, ReentrancyGuardUpgradeabl
     require(sent, "Ether not sent");
   }
 
-  // Fail Safe Methods
-  
+  /* Fail Safe Methods */
   function withdraw() public onlyOwner {
     uint256 balance = address(this).balance;
     payable(msg.sender).transfer(balance);
@@ -170,6 +243,6 @@ contract ZonicMarketplace is OrderProcessorUpgradable, ReentrancyGuardUpgradeabl
       tokenContract.safeTransferFrom(address(this), msg.sender, tokenIds[i]);
   }
 
-  // Storage Gap
+  /* Storage Gap */
   uint256[50] __gap;
 }
