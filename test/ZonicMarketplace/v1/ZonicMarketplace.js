@@ -75,15 +75,15 @@ describe("ZonicMarketplaceV1", function () {
     return { r, s, v }
   }
 
-  async function generateAdminSignature(saleId, expiredInSecond) {
+  async function generateAdminSignature(contractAddress, saleId, expiredInSecond) {
     const expiredAt = Math.floor(new Date().getTime() / 1000 + expiredInSecond)
-    return generateAdminSignatureExpiredAt(saleId, expiredAt)
+    return generateAdminSignatureExpiredAt(contractAddress, saleId, expiredAt)
   }
 
-  async function generateAdminSignatureExpiredAt(saleId, expiredAt) {
+  async function generateAdminSignatureExpiredAt(contractAddress, saleId, expiredAt) {
     let messageHash = ethers.utils.solidityKeccak256(
-      ["address", "string", "uint32", "string", "uint256"],
-      [saleId, "%", expiredAt, "%", 1]
+      ["address", "string", "uint32", "string", "address", "string", "uint256"],
+      [saleId, "%", expiredAt, "%", contractAddress, "%", 1]
     );
     let { r, s, v } = await getRSV(messageHash);
     return {
@@ -112,7 +112,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
 
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     // Mark seller's current wallet balance
     const sellerWalletBalanceBefore = await waffle.provider.getBalance(signer.address)
@@ -167,7 +167,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
 
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     await contract.fulfillBasicOrder(
       data.message,
@@ -207,7 +207,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
 
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     await expect(
       contract.fulfillBasicOrder(
@@ -240,7 +240,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
 
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     await expect(
       contract.fulfillBasicOrder(
@@ -274,7 +274,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
   
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     await expect(
       contract.fulfillBasicOrder(
@@ -307,7 +307,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
 
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     await expect(
       contract.fulfillBasicOrder(
@@ -339,7 +339,7 @@ describe("ZonicMarketplaceV1", function () {
     const signature = signTypedDataV4(data, signer)
 
     // Get Admin Signature
-    const adminSig = await generateAdminSignature(data.message.saleId, 180)
+    const adminSig = await generateAdminSignature(contract.address, data.message.saleId, 180)
 
     await expect(
       contract.fulfillBasicOrder(
@@ -381,7 +381,7 @@ describe("ZonicMarketplaceV1", function () {
     const signatureOfValidData = signTypedDataV4(validData, signer)
   
     // Get Admin Signature
-    const adminSigForValidData = await generateAdminSignature(validData.message.saleId, 180)
+    const adminSigForValidData = await generateAdminSignature(contract.address, validData.message.saleId, 180)
 
     await contract.fulfillBasicOrder(
       validData.message,
@@ -403,7 +403,7 @@ describe("ZonicMarketplaceV1", function () {
     const signatureOfInvalidData = signTypedDataV4(invalidData, signer)
 
     // Get Admin Signature
-    const adminSigForInvalidData = await generateAdminSignature(invalidData.message.saleId, 180)
+    const adminSigForInvalidData = await generateAdminSignature(contract.address, invalidData.message.saleId, 180)
 
     await expect(
       contract.fulfillBasicOrder(

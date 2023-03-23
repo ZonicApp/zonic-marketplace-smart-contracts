@@ -51,7 +51,7 @@ contract ZonicMarketplaceV1 is OrderProcessorUpgradable, ReentrancyGuardUpgradea
     bytes32 adminSignatureS,
     uint32 adminSigExpiredAt
   ) external payable whenNotPaused nonReentrant {
-    require(__recoverAddress(abi.encodePacked(listing.saleId, "%", adminSigExpiredAt, "%", block.chainid), adminSignatureV, adminSignatureR, adminSignatureS) == signerAddress, "Invalid admin Signature");
+    require(__recoverAddress(abi.encodePacked(listing.saleId, "%", adminSigExpiredAt, "%", address(this), "%", block.chainid), adminSignatureV, adminSignatureR, adminSignatureS) == signerAddress, "Invalid admin Signature");
     require(adminSigExpiredAt > block.timestamp, "Admin signature is expired");
 
     // Offerer and buyer could not be the same address
