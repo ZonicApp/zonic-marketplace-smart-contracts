@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ZonicApp/zonic-marketplace-smart-contracts",
   "devDependencies": {
-    "@matterlabs/hardhat-zksync-deploy": "^0.6.1",
+    "@matterlabs/hardhat-zksync-deploy": "^0.6.3",
     "@matterlabs/hardhat-zksync-solc": "^0.3.14",
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
     "@nomiclabs/hardhat-ethers": "^2.2.2",

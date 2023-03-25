@@ -97,12 +97,19 @@ module.exports = {
       chainId: 9051,
       accounts: {mnemonic: mnemonic}
     },
-    zksync2: {
+    zkSyncEra: {
+      url: 'https://mainnet.era.zksync.io',
+      chainId: 324,
+      ethNetwork: "mainnet",
+      zksync: true,
+      accounts: {mnemonic: mnemonic}
+    },
+    zkSyncTestnet: {
       url: 'https://zksync2-testnet.zksync.dev',
       chainId: 280,
-      gasPrice: 250000000,
       ethNetwork: "goerli",
       zksync: true,
+      verifyURL: 'https://zksync2-testnet.zkscan.io/verify_smart_contract/contract_verifications',
       accounts: {mnemonic: mnemonic}
     },
     polygonZkEvmTestnet: {
@@ -124,6 +131,7 @@ module.exports = {
       optimisticEthereum: process.env.ETHERSCAN_OPTIMISM_API_KEY,
       arbitrumOne: process.env.ETHERSCAN_ARBITRUM_ONE_API_KEY,
       arbitrumNova: process.env.ETHERSCAN_ARBITRUM_NOVA_API_KEY,
+      zkSyncEra: process.env.ETHERSCAN_ZKSYNC_ERA_API_KEY,
       baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
       mantleTestnet: process.env.ETHERSCAN_MANTLE_TESTNET_API_KEY,
       acrechainTestnet: process.env.ETHERSCAN_ACRECHAIN_TESTNET_API_KEY,
@@ -154,6 +162,14 @@ module.exports = {
         urls: {
           apiURL: "https://api-nova.arbiscan.io/api",
           browserURL: "https://nova.arbiscan.io/"
+        }
+      },
+      {
+        network: "zkSyncEra",
+        chainId: 324,
+        urls: {
+          apiURL: "https://explorer.zksync.io/api",
+          browserURL: "https://explorer.zksync.io/"
         }
       },
       {
