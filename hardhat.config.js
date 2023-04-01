@@ -112,6 +112,11 @@ module.exports = {
       verifyURL: 'https://zksync2-testnet.zkscan.io/verify_smart_contract/contract_verifications',
       accounts: {mnemonic: mnemonic}
     },
+    polygonZkEvm: {
+      url: 'https://zkevm-rpc.com',
+      chainId: 1101,
+      accounts: {mnemonic: mnemonic}
+    },
     polygonZkEvmTestnet: {
       url: 'https://rpc.public.zkevm-test.net',
       chainId: 1442,
@@ -120,6 +125,16 @@ module.exports = {
     scrollAlphaTestnet: {
       url: 'https://alpha-rpc.scroll.io/l2',
       chainId: 534353,
+      accounts: {mnemonic: mnemonic}
+    },
+    lineaGoerli: {
+      url: 'https://rpc.goerli.linea.build',
+      chainId: 59140,
+      accounts: {mnemonic: mnemonic}
+    },
+    taikoTestnet: {
+      url: 'https://rpc.a2.taiko.xyz',
+      chainId: 167004,
       accounts: {mnemonic: mnemonic}
     },
   },
@@ -132,12 +147,15 @@ module.exports = {
       arbitrumOne: process.env.ETHERSCAN_ARBITRUM_ONE_API_KEY,
       arbitrumNova: process.env.ETHERSCAN_ARBITRUM_NOVA_API_KEY,
       zkSyncEra: process.env.ETHERSCAN_ZKSYNC_ERA_API_KEY,
+      polygonZkEvm: process.env.ETHERSCAN_POLYGONZKEVM_API_KEY,
       baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
       mantleTestnet: process.env.ETHERSCAN_MANTLE_TESTNET_API_KEY,
       acrechainTestnet: process.env.ETHERSCAN_ACRECHAIN_TESTNET_API_KEY,
       zkSyncTestnet: process.env.ETHERSCAN_ZKSYNC_TESTNET_API_KEY,
       polygonZkEvmTestnet: process.env.ETHERSCAN_POLYGONZKEVM_TESTNET_API_KEY,
       scrollAlphaTestnet: process.env.ETHERSCAN_SCROLL_ALPHA_TESTNET_API_KEY,
+      lineaGoerli: process.env.ETHERSCAN_LINEA_GOERLI_API_KEY,
+      taikoTestnet: process.env.ETHERSCAN_TAIKO_TESTNET_API_KEY,
     },
     customChains: [
       {
@@ -170,6 +188,14 @@ module.exports = {
         urls: {
           apiURL: "https://explorer.zksync.io/api",
           browserURL: "https://explorer.zksync.io/"
+        }
+      },
+      {
+        network: "polygonZkEvm",
+        chainId: 1101,
+        urls: {
+          apiURL: 'https://api-zkevm.polygonscan.com/api',
+          browserURL: 'https://zkevm.polygonscan.com/'
         }
       },
       {
@@ -218,6 +244,22 @@ module.exports = {
         urls: {
           apiURL: "https://blockscout.scroll.io/api",
           browserURL: "https://blockscout.scroll.io"
+        }
+      },
+      {
+        network: "lineaGoerli",
+        chainId: 59140,
+        urls: {
+          apiURL: "https://explorer.goerli.linea.build/api",
+          browserURL: "https://explorer.goerli.linea.build"
+        }
+      },
+      {
+        network: "taikoTestnet",
+        chainId: 167004,
+        urls: {
+          apiURL: "https://explorer.a2.taiko.xyz/api",
+          browserURL: "https://explorer.a2.taiko.xyz"
         }
       },
     ]
