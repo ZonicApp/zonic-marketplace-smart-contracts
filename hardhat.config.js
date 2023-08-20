@@ -81,10 +81,21 @@ module.exports = {
       gasPrice: 8000000000,
       accounts: {mnemonic: mnemonic}
     },
+    base: {
+      url: 'https://developer-access-mainnet.base.org',
+      chainId: 8453,
+      gasPrice: 1000000,
+      accounts: {mnemonic: mnemonic}
+    },
     baseGoerli: {
       url: 'https://goerli.base.org',
       chainId: 84531,
       gasPrice: 1000000,
+      accounts: {mnemonic: mnemonic}
+    },
+    mantle: {
+      url: 'https://rpc.mantle.xyz',
+      chainId: 5000,
       accounts: {mnemonic: mnemonic}
     },
     mantleTestnet: {
@@ -127,6 +138,11 @@ module.exports = {
       chainId: 534353,
       accounts: {mnemonic: mnemonic}
     },
+    linea: {
+      url: 'https://linea-mainnet.infura.io/v3/024616923572461d94293059d417af98',
+      chainId: 59144,
+      accounts: {mnemonic: mnemonic}
+    },
     lineaGoerli: {
       url: 'https://rpc.goerli.linea.build',
       chainId: 59140,
@@ -148,12 +164,15 @@ module.exports = {
       arbitrumNova: process.env.ETHERSCAN_ARBITRUM_NOVA_API_KEY,
       zkSyncEra: process.env.ETHERSCAN_ZKSYNC_ERA_API_KEY,
       polygonZkEvm: process.env.ETHERSCAN_POLYGONZKEVM_API_KEY,
+      base: process.env.ETHERSCAN_BASE_API_KEY,
+      mantle: process.env.ETHERSCAN_MANTLE_API_KEY,
       baseGoerli: process.env.ETHERSCAN_BASE_GOERLI_API_KEY,
       mantleTestnet: process.env.ETHERSCAN_MANTLE_TESTNET_API_KEY,
       acrechainTestnet: process.env.ETHERSCAN_ACRECHAIN_TESTNET_API_KEY,
       zkSyncTestnet: process.env.ETHERSCAN_ZKSYNC_TESTNET_API_KEY,
       polygonZkEvmTestnet: process.env.ETHERSCAN_POLYGONZKEVM_TESTNET_API_KEY,
       scrollAlphaTestnet: process.env.ETHERSCAN_SCROLL_ALPHA_TESTNET_API_KEY,
+      linea: process.env.ETHERSCAN_LINEA_API_KEY,
       lineaGoerli: process.env.ETHERSCAN_LINEA_GOERLI_API_KEY,
       taikoTestnet: process.env.ETHERSCAN_TAIKO_TESTNET_API_KEY,
     },
@@ -199,11 +218,27 @@ module.exports = {
         }
       },
       {
+        network: "base",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://api.basescan.org/api",
+          browserURL: "https://basescan.org/"
+        }
+      },
+      {
         network: "baseGoerli",
         chainId: 84531,
         urls: {
           apiURL: "https://api-goerli.basescan.org/api",
           browserURL: "https://goerli.basescan.org/"
+        }
+      },
+      {
+        network: "mantle",
+        chainId: 5000,
+        urls: {
+          apiURL: "https://explorer.mantle.xyz/api",
+          browserURL: "https://explorer.mantle.xyz"
         }
       },
       {
@@ -234,8 +269,8 @@ module.exports = {
         network: "polygonZkEvmTestnet",
         chainId: 1442,
         urls: {
-          apiURL: "https://explorer.public.zkevm-test.net/api",
-          browserURL: "https://explorer.public.zkevm-test.net"
+          apiURL: "https://api-testnet-zkevm.polygonscan.com/api",
+          browserURL: "https://testnet-zkevm.polygonscan.com"
         }
       },
       {
@@ -244,6 +279,14 @@ module.exports = {
         urls: {
           apiURL: "https://blockscout.scroll.io/api",
           browserURL: "https://blockscout.scroll.io"
+        }
+      },
+      {
+        network: "linea",
+        chainId: 59144,
+        urls: {
+          apiURL: "http://explorer.linea.build/api",
+          browserURL: "https://explorer.linea.build"
         }
       },
       {
