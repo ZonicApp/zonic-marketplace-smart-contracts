@@ -134,7 +134,7 @@ module.exports = {
       accounts: {mnemonic: mnemonic}
     },
     scrollAlphaTestnet: {
-      url: 'https://alpha-rpc.scroll.io/l2',
+      url: 'https://scroll-testnet.blockpi.network/v1/rpc/public',
       chainId: 534353,
       accounts: {mnemonic: mnemonic}
     },
@@ -146,6 +146,11 @@ module.exports = {
     lineaGoerli: {
       url: 'https://rpc.goerli.linea.build',
       chainId: 59140,
+      accounts: {mnemonic: mnemonic}
+    },
+    opbnb: {
+      url: 'https://opbnb-mainnet-rpc.bnbchain.org',
+      chainId: 204,
       accounts: {mnemonic: mnemonic}
     },
     taikoTestnet: {
@@ -175,6 +180,7 @@ module.exports = {
       linea: process.env.ETHERSCAN_LINEA_API_KEY,
       lineaGoerli: process.env.ETHERSCAN_LINEA_GOERLI_API_KEY,
       taikoTestnet: process.env.ETHERSCAN_TAIKO_TESTNET_API_KEY,
+      opbnb: process.env.ETHERSCAN_OPBNB_API_KEY,
     },
     customChains: [
       {
@@ -303,6 +309,14 @@ module.exports = {
         urls: {
           apiURL: "https://explorer.a2.taiko.xyz/api",
           browserURL: "https://explorer.a2.taiko.xyz"
+        }
+      },
+      {
+        network: "opbnb",
+        chainId: 204,
+        urls: {
+          apiURL: `https://open-platform.nodereal.io/${process.env.ETHERSCAN_OPBNB_API_KEY}/op-bnb-testnet/contract/`,
+          browserURL: "https://mainnet.opbnbscan.com"
         }
       },
     ]
