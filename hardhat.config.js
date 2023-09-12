@@ -158,6 +158,11 @@ module.exports = {
       chainId: 167004,
       accounts: {mnemonic: mnemonic}
     },
+    shibarium: {
+      url: 'https://www.shibrpc.com',
+      chainId: 109,
+      accounts: {mnemonic: mnemonic}
+    },
   },
   etherscan: {
     apiKey: {
@@ -181,6 +186,7 @@ module.exports = {
       lineaGoerli: process.env.ETHERSCAN_LINEA_GOERLI_API_KEY,
       taikoTestnet: process.env.ETHERSCAN_TAIKO_TESTNET_API_KEY,
       opbnb: process.env.ETHERSCAN_OPBNB_API_KEY,
+      shibarium: process.env.ETHERSCAN_SHIBARIUM_API_KEY,
     },
     customChains: [
       {
@@ -317,6 +323,14 @@ module.exports = {
         urls: {
           apiURL: `https://open-platform.nodereal.io/${process.env.ETHERSCAN_OPBNB_API_KEY}/op-bnb-testnet/contract/`,
           browserURL: "https://mainnet.opbnbscan.com"
+        }
+      },
+      {
+        network: "shibarium",
+        chainId: 109,
+        urls: {
+          apiURL: ``,
+          browserURL: "https://www.shibariumscan.io"
         }
       },
     ]
