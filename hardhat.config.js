@@ -163,6 +163,11 @@ module.exports = {
       chainId: 109,
       accounts: {mnemonic: mnemonic}
     },
+    lightlink_phoenix: {
+      url: 'https://replicator-01.phoenix.lightlink.io/rpc/v1',
+      chainId: 1890,
+      accounts: {mnemonic: mnemonic}
+    },
   },
   etherscan: {
     apiKey: {
@@ -187,6 +192,7 @@ module.exports = {
       taikoTestnet: process.env.ETHERSCAN_TAIKO_TESTNET_API_KEY,
       opbnb: process.env.ETHERSCAN_OPBNB_API_KEY,
       shibarium: process.env.ETHERSCAN_SHIBARIUM_API_KEY,
+      lightlink_phoenix: process.env.ETHERSCAN_LIGHTLINK_PHOENIX_API_KEY,
     },
     customChains: [
       {
@@ -331,6 +337,14 @@ module.exports = {
         urls: {
           apiURL: ``,
           browserURL: "https://www.shibariumscan.io"
+        }
+      },
+      {
+        network: "lightlink_phoenix",
+        chainId: 1890,
+        urls: {
+          apiURL: ``,
+          browserURL: "https://phoenix.lightlink.io"
         }
       },
     ]
