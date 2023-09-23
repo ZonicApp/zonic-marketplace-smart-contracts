@@ -168,6 +168,11 @@ module.exports = {
       chainId: 1890,
       accounts: {mnemonic: mnemonic}
     },
+    metis: {
+      url: 'https://metis-mainnet.public.blastapi.io',
+      chainId: 1088,
+      accounts: {mnemonic: mnemonic}
+    },
   },
   etherscan: {
     apiKey: {
@@ -193,6 +198,7 @@ module.exports = {
       opbnb: process.env.ETHERSCAN_OPBNB_API_KEY,
       shibarium: process.env.ETHERSCAN_SHIBARIUM_API_KEY,
       lightlink_phoenix: process.env.ETHERSCAN_LIGHTLINK_PHOENIX_API_KEY,
+      metis: process.env.ETHERSCAN_METIS_API_KEY,
     },
     customChains: [
       {
@@ -345,6 +351,14 @@ module.exports = {
         urls: {
           apiURL: ``,
           browserURL: "https://phoenix.lightlink.io"
+        }
+      },
+      {
+        network: "metis",
+        chainId: 1088,
+        urls: {
+          apiURL: `https://api.routescan.io/v2/network/mainnet/evm/1088/etherscan/api`,
+          browserURL: "https://andromeda-explorer.metis.io"
         }
       },
     ]
