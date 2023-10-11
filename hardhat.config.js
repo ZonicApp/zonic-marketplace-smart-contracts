@@ -173,6 +173,11 @@ module.exports = {
       chainId: 1088,
       accounts: {mnemonic: mnemonic}
     },
+    scroll: {
+      url: 'https://rpc.scroll.io',
+      chainId: 534352,
+      accounts: {mnemonic: mnemonic}
+    },
   },
   etherscan: {
     apiKey: {
@@ -199,6 +204,7 @@ module.exports = {
       shibarium: process.env.ETHERSCAN_SHIBARIUM_API_KEY,
       lightlink_phoenix: process.env.ETHERSCAN_LIGHTLINK_PHOENIX_API_KEY,
       metis: process.env.ETHERSCAN_METIS_API_KEY,
+      scroll: process.env.ETHERSCAN_SCROLL_API_KEY,
     },
     customChains: [
       {
@@ -359,6 +365,14 @@ module.exports = {
         urls: {
           apiURL: `https://api.routescan.io/v2/network/mainnet/evm/1088/etherscan/api`,
           browserURL: "https://andromeda-explorer.metis.io"
+        }
+      },
+      {
+        network: "scroll",
+        chainId: 534352,
+        urls: {
+          apiURL: `https://api.routescan.io/v2/network/mainnet/evm/534352/etherscan/api`,
+          browserURL: "https://blockscout.scroll.io"
         }
       },
     ]
