@@ -178,6 +178,11 @@ module.exports = {
       chainId: 534352,
       accounts: {mnemonic: mnemonic}
     },
+    zora: {
+      url: 'https://rpc.zora.energy',
+      chainId: 7777777,
+      accounts: {mnemonic: mnemonic}
+    },
   },
   etherscan: {
     apiKey: {
@@ -205,6 +210,7 @@ module.exports = {
       lightlink_phoenix: process.env.ETHERSCAN_LIGHTLINK_PHOENIX_API_KEY,
       metis: process.env.ETHERSCAN_METIS_API_KEY,
       scroll: process.env.ETHERSCAN_SCROLL_API_KEY,
+      zora: process.env.ETHERSCAN_ZORA_API_KEY,
     },
     customChains: [
       {
@@ -373,6 +379,14 @@ module.exports = {
         urls: {
           apiURL: `https://api.routescan.io/v2/network/mainnet/evm/534352/etherscan/api`,
           browserURL: "https://blockscout.scroll.io"
+        }
+      },
+      {
+        network: "zora",
+        chainId: 7777777,
+        urls: {
+          apiURL: `https://api.routescan.io/v2/network/mainnet/evm/7777777/etherscan/api`,
+          browserURL: "https://explorer.zora.energy/"
         }
       },
     ]
