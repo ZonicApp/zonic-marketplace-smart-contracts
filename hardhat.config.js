@@ -181,6 +181,7 @@ module.exports = {
     zora: {
       url: 'https://rpc.zora.energy',
       chainId: 7777777,
+      gasPrice: 100,
       accounts: {mnemonic: mnemonic}
     },
   },
@@ -313,8 +314,8 @@ module.exports = {
         network: "scrollAlphaTestnet",
         chainId: 534353,
         urls: {
-          apiURL: "https://blockscout.scroll.io/api",
-          browserURL: "https://blockscout.scroll.io"
+          apiURL: "https://alpha-blockscout.scroll.io/api",
+          browserURL: "https://alpha-blockscout.scroll.io"
         }
       },
       {
@@ -385,7 +386,7 @@ module.exports = {
         network: "zora",
         chainId: 7777777,
         urls: {
-          apiURL: `https://api.routescan.io/v2/network/mainnet/evm/7777777/etherscan/api`,
+          apiURL: `https://explorer.zora.energy/api`,
           browserURL: "https://explorer.zora.energy/"
         }
       },
